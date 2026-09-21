@@ -9,14 +9,18 @@ interface PaginationProps {
   onPageChange: (selectedPage: number) => void;
 }
 
-export function Pagination({ pageCount, currentPage, onPageChange }: PaginationProps) {
+export function Pagination({
+  pageCount,
+  currentPage,
+  onPageChange,
+}: PaginationProps) {
   if (pageCount <= 1) return null;
 
   return (
     <ReactPaginate
       pageCount={pageCount}
-      forcePage={currentPage - 1} 
-      onPageChange={(selectedItem) => onPageChange(selectedItem.selected + 1)}
+      forcePage={currentPage - 1}
+      onPageChange={selectedItem => onPageChange(selectedItem.selected + 1)}
       pageRangeDisplayed={3}
       marginPagesDisplayed={1}
       previousLabel="← Prev"

@@ -3,7 +3,8 @@
 import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createNote, CreateNoteDto } from '../../lib/api';
+import { createNote } from '../../services/noteService';
+import { CreateNoteDto } from '../../types/note'
 import { useNoteStore, DraftNote } from '../../lib/store/noteStore';
 import css from './NoteForm.module.css';
 
@@ -11,19 +12,29 @@ interface NoteFormProps {
   onClose?: () => void;
 }
 
-const ALLOWED_TAGS = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'] as const;
+const ALLOWED_TAGS = [
+  'Todo',
+  'Work',
+  'Personal',
+  'Meeting',
+  'Shopping',
+] as const;
 
 export function NoteForm({ onClose }: NoteFormProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
   // Отримуємо стан та екшени зі стору Zustand
-  const draft = useNoteStore((state) => state.draft);
-  const setDraft = useNoteStore((state) => state.setDraft);
-  const clearDraft = useNoteStore((state) => state.clearDraft);
+  const draft = useNoteStore(state => state.draft);
+  const setDraft = useNoteStore(state => state.setDraft);
+  const clearDraft = useNoteStore(state => state.clearDraft);
 
   // Стан локальних помилок валідації
-  const [errors, setErrors] = useState<{ title?: string; content?: string; tag?: string }>({});
+  const [errors, setErrors] = useState<{
+    title?: string;
+    content?: string;
+    tag?: string;
+  }>({});
 
   const mutation = useMutation({
     mutationFn: (newNote: CreateNoteDto) => createNote(newNote),
@@ -139,7 +150,7 @@ export function NoteForm({ onClose }: NoteFormProps) {
           value={draft.tag}
           onChange={handleChange}
         >
-          {ALLOWED_TAGS.map((tag) => (
+          {ALLOWED_TAGS.map(tag => (
             <option key={tag} value={tag}>
               {tag}
             </option>

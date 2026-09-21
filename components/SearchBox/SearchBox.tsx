@@ -9,7 +9,7 @@ export const SearchBox = ({ value, onChange }: SearchBoxProps) => {
       type="text"
       placeholder="Search notes..."
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       style={{ padding: '8px 12px', width: '250px' }}
     />
   );

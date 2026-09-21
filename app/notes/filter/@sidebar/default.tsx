@@ -15,7 +15,7 @@ export default function SidebarDefault() {
           </li>
 
           {/* Усі теги використовують той самий TagLink */}
-          {tags.map((tag) => (
+          {tags.map(tag => (
             <li key={tag} className={css.tagItem}>
               <TagLink href={`/notes/filter/${encodeURIComponent(tag)}`}>
                 #{tag}

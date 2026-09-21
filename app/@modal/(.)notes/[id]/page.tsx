@@ -3,14 +3,16 @@ import {
   HydrationBoundary,
   dehydrate,
 } from '@tanstack/react-query';
-import { fetchNoteById } from '../../../../lib/api';
+import { fetchNoteById } from '../../../../lib/api/api';
 import NotePreviewClient from './NotePreview.client';
 
 interface ModalNotePageProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function InterceptedNoteModalPage({ params }: ModalNotePageProps) {
+export default async function InterceptedNoteModalPage({
+  params,
+}: ModalNotePageProps) {
   const { id } = await params;
   const queryClient = new QueryClient();
 

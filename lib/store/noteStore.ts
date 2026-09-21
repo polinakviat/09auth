@@ -21,24 +21,17 @@ const initialDraft: DraftNote = {
 
 export const useNoteStore = create<NoteStore>()(
   persist(
-    (set) => ({
+    set => ({
       draft: initialDraft,
-
-      // Оновлення полів чернетки із збереженням попередніх значень
-      setDraft: (note) =>
-        set((state) => ({
-          draft: {
-            ...state.draft,
-            ...note,
-          },
+      setDraft: note =>
+        set(state => ({
+          draft: { ...state.draft, ...note },
         })),
-
-      // Скидання чернетки до початкового стану
       clearDraft: () => set({ draft: initialDraft }),
     }),
     {
-      name: 'note-draft-storage', // Ключ у localStorage
-      partialize: (state) => ({ draft: state.draft }), // Зберігаємо лише об'єкт draft без екшенів/методів
+      name: 'note-draft-storage',
+      partialize: state => ({ draft: state.draft }),
     }
   )
 );

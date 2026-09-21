@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from '@tanstack/react-query';
-import { fetchNotes } from '../../../../lib/api';
+import { fetchNotes } from '../../../../lib/api/notes/notes';
 import NotesPageClient from './NotesPage.client';
 
 interface FilterPageProps {
@@ -45,13 +45,14 @@ export async function generateMetadata({
 export default async function NotesFilterPage({ params }: FilterPageProps) {
   const { slug } = await params;
   const rawTag = slug?.[0];
-  const tag = rawTag && rawTag !== 'all' ? decodeURIComponent(rawTag) : undefined;
+  const tag =
+    rawTag && rawTag !== 'all' ? decodeURIComponent(rawTag) : undefined;
 
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ['notes', 1, '', tag],
-    queryFn: () => fetchNotes(1, 12, '', tag),
+    queryFn: () => fetchNotes({ page: 1, perPage: 12, search: '', tag }),
   });
 
   return (

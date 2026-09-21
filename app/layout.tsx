@@ -2,9 +2,14 @@ import Providers from './providers';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import './globals.css'; // Переконайтеся, що імпорт глобальних стилів збережено
+import './globals.css';
+import type { ReactNode } from 'react';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import AuthProvider from '../components/AuthProvider/AuthProvider';
 
-// Налаштування шрифту Roboto
+
 const roboto = Roboto({
   weight: ['400', '500', '700'],
   subsets: ['latin', 'cyrillic'],
@@ -38,14 +43,17 @@ export default function RootLayout({
   modal: React.ReactNode;
 }) {
 
-
   return (
-    <html lang="en">
-      <body className={`${roboto.className} ${roboto.variable}`}>
-        <Providers>
-          {children}
-          {modal}
-        </Providers>
+    <html lang="uk">
+      <body>
+        <TanStackProvider>
+          <AuthProvider>
+            <Header />
+            {children}
+            {modal}
+            <Footer />
+          </AuthProvider>
+        </TanStackProvider>
       </body>
     </html>
   );

@@ -29,7 +29,7 @@ export const NoteItem = ({ note }: NoteItemProps) => {
           </Link>
         </h3>
         <p className={css.content}>{note.content}</p>
-        
+
         <span className={css.tag}>{note.tag}</span>
 
         <button

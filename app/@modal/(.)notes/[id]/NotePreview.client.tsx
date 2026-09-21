@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchNoteById } from '../../../../lib/api';
+import { fetchNoteById } from '../../../../lib/api/api';
 import { Modal } from '../../../../components/Modal/Modal';
 import css from './NotePreview.module.css';
 import Link from 'next/link';
@@ -37,9 +37,15 @@ export default function NotePreviewClient({ id }: NotePreviewClientProps) {
         {isError && (
           <div className={css.errorWrapper}>
             <p className={css.errorText}>
-              {error instanceof Error ? error.message : 'Failed to load note details.'}
+              {error instanceof Error
+                ? error.message
+                : 'Failed to load note details.'}
             </p>
-            <button type="button" onClick={handleClose} className={css.closeBtn}>
+            <button
+              type="button"
+              onClick={handleClose}
+              className={css.closeBtn}
+            >
               Close
             </button>
           </div>

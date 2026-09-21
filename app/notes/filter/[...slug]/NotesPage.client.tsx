@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fetchNotes } from '../../../../lib/api';
+import { fetchNotes } from '../../../../lib/api/api';
 import type { Note } from '../../../../types/note';
 
 import { NoteList } from '../../../../components/NoteList/NoteList';
@@ -62,14 +62,13 @@ export default function NotesPageClient({ tag }: NotesClientProps) {
 
       {isError && (
         <p className={css.errorText}>
-          Помилка завантаження: {error instanceof Error ? error.message : 'Невідома помилка'}
+          Помилка завантаження:{' '}
+          {error instanceof Error ? error.message : 'Невідома помилка'}
         </p>
       )}
 
       {/* Список нотаток */}
-      {!isLoading && !isError && notes.length > 0 && (
-        <NoteList notes={notes} />
-      )}
+      {!isLoading && !isError && notes.length > 0 && <NoteList notes={notes} />}
 
       {/* Повідомлення, якщо нотаток немає */}
       {!isLoading && !isError && notes.length === 0 && (
